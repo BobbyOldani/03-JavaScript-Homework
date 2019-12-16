@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1>Random Password Generator</h1>
+                <h1>Password Generator</h1>
             </div>
         </div>
         <div class="row">
@@ -25,16 +25,16 @@
                 <div class="row border-top">
                     <div class="col-sm-12">
                         <div class="pwdisplaybox">
-                            <p> Your Secure Password</p>
+                            <p id="securepass">Secure Password</p>
                         </div>
                     </div>
                 </div>
                 <div class="row border-top">
                     <div class="col-sm-6 text-center">
-                        <button type="button" class="btn btn-primary btn-lg">Generate Password</button>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="generate()">Generate Password</button>
                     </div>
                     <div class="col-sm-6 text-center">
-                        <button type="button" class="btn btn-secondary btn-lg">Copy to Clipboard</button>
+                        <button type="button" class="btn btn-secondary btn-lg" onclick="clipboard()">Copy to Clipboard</button>
                     </div>
                 </div>
             </div>
@@ -43,3 +43,5 @@
     <script src= "Assets/script.js"></script>
 </body>
 </html>
+
+
