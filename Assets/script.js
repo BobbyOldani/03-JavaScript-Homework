@@ -1,86 +1,72 @@
-// let specChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "=", "]", "[", "?"];
-// let numChar = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-// let lowerChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-// let upperChar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-// let charChoices = {
-//     specChar,
-//     numChar,
-//     lowerChar,
-//     upperChar
-// }
-//let passLength = prompt("How many characters would you like your password to be? Your password must be between 8-128 characters!")
-//let confSpec = confirm("Press OK if you would like special characters in your password");
-//let confNum = confirm("Press OK if you would like numbers in your password");
-//let confLower = confirm("Press OK if you would like lowercase letters in your password");
-//let confUpper = confirm("Press OK if you would like uppercase letters in your password");
+//I heavily struggled with this assignment. I am trying my best to grasp JS. I spent a TON of time going
+//essentially nowhere and getting extremely frustrated. I met with a friend who knows JS well and he walked 
+//me though creating this in the simplest way possible. I have fully commented this to my best ability
+//explaining each step of the code and what is accomplishes. I want to make it clear that I am not trying to
+//pass this code off as 100% my own creation as I was walked through the creation of multiple portions of the
+//code. I intend to continue studying this and fully understand and conceptualize every peice of code.
 
-//console.log(passLength);
-//console.log(confSpec);
-//console.log(confNum);
-//console.log(confLower);
-//console.log(confUpper);
 
-//---------------------------------------------------------------------------
-function generate() {
-    let passLength = prompt(
+
+
+function generate() {  //creates main function to be used on onClick of my button
+    let passLength = prompt(  //creates variable that is = to the response of chosen pass length
       "How many characters would you like your password to be? Your password must be between 8-128 characters!"
     );
-    let values = [
+    let values = [  //this is my array of possible characters seperated into strings
       "!@#$%^&*()=+[]?",
       "0123456789",
       "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
       "abcdefghijklmnopqrstuvwxyz"
     ];
   
-    let password = "";
-    let options = [
+    let password = "";  //creates my password variable which will hold the randomized password
+    let options = [     //creates variable that represents the 4 checkable boxes
       "inlineCheckbox1", //Special Characters
       "inlineCheckbox2", //Numbers
       "inlineCheckbox3", //Uppercase
       "inlineCheckbox4"  //Lowercase
     ];
     function getRandomInt(max) { //creates a function to get a random number                                     
-      return Math.floor(Math.random() * Math.floor(max));
+      return Math.floor(Math.random() * Math.floor(max)); //this function will be used later to get a random number for my seed variable.
     }
-    if (passLength >= 8 && passLength <= 128) {
-      let allUnchecked = true;
-      for (option of options) {
+    if (passLength >= 8 && passLength <= 128) { //checks if the passLength chosen is viable
+      let allUnchecked = true; // creates a variable and assigning it to true
+      for (option of options) { // run a loop and check if any of the boxes are checked
         if (document.getElementById(option).checked) {
-          allUnchecked = false;
+          allUnchecked = false; //if any of them are checked make allUnchecked false
         }
       }
-      if (!allUnchecked) {
-        for (let i = 0; i <= passLength; i++) {
-          //seed holds the value for what type of character we will generate
-          let seed;
+      if (!allUnchecked) { //if allUnchecked is false
+        for (let i = 0; i <= passLength; i++) { //run this loop until passLength is satisfied
+          let seed;  //seed holds the value for what type of characters we will generate on this loop
           do {
-            seed = getRandomInt(options.length); //randomly select a character type
+            seed = getRandomInt(options.length); //randomly select an option of my options array
             console.log("seed: ", seed);
             console.log(document.getElementById(options[seed]).checked);
           } while (!document.getElementById(options[seed]).checked); //check to see if that type was selected otherwise choose again
   
-          password =
-            password +
-            values[seed].charAt(
-              Math.floor(Math.random() * Math.floor(values[seed].length - 1))
+          password =  
+            password +  // this will add a character each loop to my password randomly selected based on which randomized seed was already chosen
+            values[seed].charAt( Math.floor(Math.random() * Math.floor(values[seed].length - 1))
             );
         }
       }
-      else {
+      else { //if they didn't check any boxes the loop will not have run and give them this alert based on if(!allUnchecked) and end the loop
         alert("CHECK A DAMN BOX!");
       }
-      // check to see whether password length is valid
-    } else {
-      alert("I SAID BETWEEN 8-128!... CHOOSE WISELY");
+      
+    } 
+        else { //if they didn't choose between 8-128 char alert this and end the loop.
+        alert("I SAID BETWEEN 8-128!... CHOOSE WISELY");
     }
   
-    document.getElementById("securepass").value = password;
+    document.getElementById("securepass").value = password; //this is value because it is an input. I would rewrite this as innerHTML if it was text in a div.
     console.log(password);
   }
   
-  function clipboard() {
-    let copyClip = document.getElementById("securepass");
-    copyClip.select();
-    document.execCommand("copy");
+  function clipboard() { //clipboard function that doesnt work on text in say a <p>. Only works with <input>
+    let copyClip = document.getElementById("securepass"); //variable that holds the "securepass" input text
+    copyClip.select(); //selects text
+    document.execCommand("copy"); //copies selected text
   }
   
